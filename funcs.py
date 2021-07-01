@@ -30,16 +30,28 @@ def sumTowers(hist, gen_eta, gen_phi, numNeighbors):
     genEtaBin = hist.GetXaxis().FindBin(gen_eta)
     genPhiBin = hist.GetYaxis().FindBin(gen_phi)
     
+    nBinsPhi = hist.GetNbinsY()
+    nBinsEta = hist.GetNbinsX() #Number of eta bins inclusive of both endcaps and the barrel
+    if (nBinsPhi!=72):
+        print("number of phi bins updated/changed?")
+        sys.exit(1)
+    if (nBinsEta!=70):
+        print("number of eta bins updated/changed?")
+        sys.exit(1)
+
     sums = 0
     for ix in range(-numNeighbors, 1+numNeighbors):
         for iy in range(-numNeighbors, 1+numNeighbors):
             tower_eta = ix+genEtaBin
             tower_phi = iy+genPhiBin
-            if tower_phi > 72:
-                tower_phi = tower_phi - 72
+            
+            if tower_phi > nBinsPhi:
+                tower_phi = tower_phi - nBinsPhi
             elif tower_phi < 1:
-                tower_phi = tower_phi + 72
-            sums += hist.GetBinContent(tower_eta, tower_phi)
+                tower_phi = tower_phi + nBinsPhi
+            
+            if (tower_eta >= 1) and (tower_eta <= nBinsEta):
+                sums += hist.GetBinContent(tower_eta, tower_phi)
 
     return sums
 

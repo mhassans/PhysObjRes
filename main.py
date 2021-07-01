@@ -6,13 +6,13 @@ from funcs import getEtaPhiBins, sumTowers
 
 ROOT.gStyle.SetOptStat(0)
 
-def getNtupleVars(ntupleDir, ntupleName, varsDir):
-    fIn = ROOT.TFile.Open(ntupleDir + ntupleName + '.root', "READ")
+def getNtupleVars(ntupleDir, ntupleName, varsDir, isjet):
+    fIn = ROOT.TFile.Open(ntupleDir + ntupleName, "READ")
     treeIn = fIn.Get("hgcalTriggerNtuplizer/HGCalTriggerNtuple")
 
     varsName = ntupleName.replace("ntuple_", "vars_") #variables
-    fOut = ROOT.TFile(varsDir + varsName + ".root", "RECREATE")
-    treeOut = ROOT.TTree(varsName, varsName)
+    fOut = ROOT.TFile(varsDir + varsName, "RECREATE")
+    treeOut = ROOT.TTree(varsName.replace(".root",""), varsName.replace(".root",""))
 
     GenEnergy_1 = array('f', [-100.])
     GenEta_1 = array('f', [-100.])
@@ -105,9 +105,13 @@ def getNtupleVars(ntupleDir, ntupleName, varsDir):
         tower_etHad = getattr(treeIn,"tower_etHad")
         tower_n = getattr(treeIn,"tower_n")
         tower_eta = getattr(treeIn,"tower_eta")        
-        gen_eta = getattr(treeIn,"gen_eta")
-        gen_phi = getattr(treeIn,"gen_phi")
-        gen_energy = getattr(treeIn,"gen_energy")
+        if(isjet):
+            jetflag = 'jet'
+        else:
+            jetflag = ''
+        gen_eta = getattr(treeIn,"gen" + jetflag + "_eta")
+        gen_phi = getattr(treeIn,"gen" + jetflag + "_phi")
+        gen_energy = getattr(treeIn,"gen" + jetflag + "_energy")
         
         histEM.Reset()
         histHad.Reset()
@@ -164,9 +168,10 @@ def getNtupleVars(ntupleDir, ntupleName, varsDir):
 
 def main():
     ntupleDir = "inputNtuples/"
-    ntupleName = "ntuple_VBFHToInv_NoPU_WithEnergySplit"
+    ntupleName = "ntuple_VBFHToInv_NoPU_WithEnergySplit.root"
     varsDir = "varsDir/"
-    getNtupleVars(ntupleDir, ntupleName, varsDir)
+    isjet = True
+    getNtupleVars(ntupleDir, ntupleName, varsDir, isjet)
     
 if __name__=='__main__':
     main()

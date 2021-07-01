@@ -2,3 +2,4 @@ __pycache__/
 inputNtuples/
 varsDir/
 old/
+.ipynb_checkpoints/
