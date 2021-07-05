@@ -1,18 +1,22 @@
 from array import array
+import sys
 import ROOT
 import math
 import numpy as np
 from funcs import getEtaPhiBins, sumTowers
+#from optparse import OptionParser
+import argparse
+
 
 ROOT.gStyle.SetOptStat(0)
 
-def getNtupleVars(ntupleDir, ntupleName, varsDir, isjet):
-    fIn = ROOT.TFile.Open(ntupleDir + ntupleName, "READ")
+def getNtupleVars(ntupleFile, outDir, isjet):
+    fIn = ROOT.TFile.Open(ntupleFile, "READ")
     treeIn = fIn.Get("hgcalTriggerNtuplizer/HGCalTriggerNtuple")
 
-    varsName = ntupleName.replace("ntuple_", "vars_") #variables
-    fOut = ROOT.TFile(varsDir + varsName, "RECREATE")
-    treeOut = ROOT.TTree(varsName.replace(".root",""), varsName.replace(".root",""))
+    varsFile = ntupleFile.split('/')[-1].replace("ntuple_", "vars_").replace(".root","") #variables
+    fOut = ROOT.TFile(outDir + varsFile + ".root", "RECREATE")
+    treeOut = ROOT.TTree(varsFile, varsFile)
 
     GenEnergy_1 = array('f', [-100.])
     GenEta_1 = array('f', [-100.])
@@ -140,24 +144,25 @@ def getNtupleVars(ntupleDir, ntupleName, varsDir, isjet):
         Had9x9_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=4)
         Had11x11_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=5)
         
+        only1jet = True if len(gen_eta)==1 else False
         index_2 = 1
-        GenEnergy_2[0] = gen_energy[index_2]/np.cosh(gen_eta[index_2])
-        GenEta_2[0] = gen_eta[index_2]
-        GenPhi_2[0] = gen_phi[index_2]
-
-        EM1x1_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=0)
-        EM3x3_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=1)
-        EM5x5_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=2)
-        EM7x7_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=3)
-        EM9x9_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=4)
-        EM11x11_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=5)
-
-        Had1x1_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=0)
-        Had3x3_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=1)
-        Had5x5_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=2)
-        Had7x7_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=3)
-        Had9x9_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=4)
-        Had11x11_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=5)
+        GenEnergy_2[0] = gen_energy[index_2]/np.cosh(gen_eta[index_2]) if not only1jet else -999
+        GenEta_2[0] = gen_eta[index_2] if not only1jet else -999
+        GenPhi_2[0] = gen_phi[index_2] if not only1jet else -999
+        
+        EM1x1_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=0) if not only1jet else -999
+        EM3x3_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=1) if not only1jet else -999
+        EM5x5_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=2) if not only1jet else -999
+        EM7x7_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=3) if not only1jet else -999
+        EM9x9_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=4) if not only1jet else -999
+        EM11x11_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=5) if not only1jet else -999
+        
+        Had1x1_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=0) if not only1jet else -999
+        Had3x3_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=1) if not only1jet else -999
+        Had5x5_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=2) if not only1jet else -999
+        Had7x7_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=3) if not only1jet else -999
+        Had9x9_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=4) if not only1jet else -999
+        Had11x11_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=5) if not only1jet else -999
         
         treeOut.Fill()
     
@@ -167,11 +172,21 @@ def getNtupleVars(ntupleDir, ntupleName, varsDir, isjet):
 
 
 def main():
-    ntupleDir = "inputNtuples/"
-    ntupleName = "ntuple_VBFHToInv_NoPU_WithEnergySplit.root"
+    parser = argparse.ArgumentParser()
+    
+    parser.add_argument('--jet', action='store_true')
+    parser.add_argument('--nojet', action='store_true')
+    parser.add_argument('--input', type=str, required=True)
+    
+    args = parser.parse_args()
+    
+    if(bool(args.nojet)==bool(args.jet)):
+        print("ERROR: either 'jet' or 'nojet' must be used as an argument")
+        sys.exit(1)
+
     varsDir = "varsDir/"
-    isjet = True
-    getNtupleVars(ntupleDir, ntupleName, varsDir, isjet)
+    
+    getNtupleVars(args.input, varsDir, args.jet)
     
 if __name__=='__main__':
     main()
