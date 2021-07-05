@@ -144,25 +144,25 @@ def getNtupleVars(ntupleFile, outDir, isjet):
         Had9x9_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=4)
         Had11x11_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=5)
         
-        only1jet = True if len(gen_eta)==1 else False
+        only1particle = True if len(gen_eta)==1 else False
         index_2 = 1
-        GenEnergy_2[0] = gen_energy[index_2]/np.cosh(gen_eta[index_2]) if not only1jet else -999
-        GenEta_2[0] = gen_eta[index_2] if not only1jet else -999
-        GenPhi_2[0] = gen_phi[index_2] if not only1jet else -999
+        GenEnergy_2[0] = gen_energy[index_2]/np.cosh(gen_eta[index_2]) if not only1particle else -999
+        GenEta_2[0] = gen_eta[index_2] if not only1particle else -999
+        GenPhi_2[0] = gen_phi[index_2] if not only1particle else -999
         
-        EM1x1_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=0) if not only1jet else -999
-        EM3x3_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=1) if not only1jet else -999
-        EM5x5_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=2) if not only1jet else -999
-        EM7x7_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=3) if not only1jet else -999
-        EM9x9_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=4) if not only1jet else -999
-        EM11x11_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=5) if not only1jet else -999
+        EM1x1_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=0) if not only1particle else -999
+        EM3x3_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=1) if not only1particle else -999
+        EM5x5_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=2) if not only1particle else -999
+        EM7x7_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=3) if not only1particle else -999
+        EM9x9_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=4) if not only1particle else -999
+        EM11x11_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=5) if not only1particle else -999
         
-        Had1x1_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=0) if not only1jet else -999
-        Had3x3_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=1) if not only1jet else -999
-        Had5x5_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=2) if not only1jet else -999
-        Had7x7_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=3) if not only1jet else -999
-        Had9x9_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=4) if not only1jet else -999
-        Had11x11_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=5) if not only1jet else -999
+        Had1x1_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=0) if not only1particle else -999
+        Had3x3_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=1) if not only1particle else -999
+        Had5x5_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=2) if not only1particle else -999
+        Had7x7_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=3) if not only1particle else -999
+        Had9x9_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=4) if not only1particle else -999
+        Had11x11_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=5) if not only1particle else -999
         
         treeOut.Fill()
     
@@ -181,7 +181,7 @@ def main():
     args = parser.parse_args()
     
     if(bool(args.nojet)==bool(args.jet)):
-        print("ERROR: either 'jet' or 'nojet' must be used as an argument")
+        print("ERROR: either '--jet' or '--nojet' must be used as input argument")
         sys.exit(1)
 
     varsDir = "varsDir/"
