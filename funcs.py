@@ -39,7 +39,9 @@ def sumTowers(hist, gen_eta, gen_phi, numNeighbors):
         print("number of eta bins updated/changed?")
         sys.exit(1)
 
-    sums = 0
+    energy = []
+    eta = []
+    phi = []
     for ix in range(-numNeighbors, 1+numNeighbors):
         for iy in range(-numNeighbors, 1+numNeighbors):
             tower_eta = ix+genEtaBin
@@ -51,7 +53,13 @@ def sumTowers(hist, gen_eta, gen_phi, numNeighbors):
                 tower_phi = tower_phi + nBinsPhi
             
             if (tower_eta >= 1) and (tower_eta <= nBinsEta):
-                sums += hist.GetBinContent(tower_eta, tower_phi)
+                energy.append(hist.GetBinContent(tower_eta, tower_phi))
+                eta.append(tower_eta)
+                phi.append(tower_phi)
 
-    return sums
+    energy_sum = sum(energy)
+    eta_avg = sum(eta[i]*energy[i]/energy_sum for i in range(len(energy))) if energy_sum!=0 else -999
+    phi_avg = sum(phi[i]*energy[i]/energy_sum for i in range(len(energy))) if energy_sum!=0 else -999
+    
+    return (energy_sum, eta_avg, phi_avg)
 

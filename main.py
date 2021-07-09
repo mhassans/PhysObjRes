@@ -39,6 +39,18 @@ def getNtupleVars(ntupleFile, outDir, isjet):
     Tot7x7_1 = array('f', [-100.])
     Tot9x9_1 = array('f', [-100.])
     Tot11x11_1 = array('f', [-100.])
+    Eta1x1_1 = array('f', [-100.])
+    Eta3x3_1 = array('f', [-100.])
+    Eta5x5_1 = array('f', [-100.])
+    Eta7x7_1 = array('f', [-100.])
+    Eta9x9_1 = array('f', [-100.])
+    Eta11x11_1 = array('f', [-100.])
+    Phi1x1_1 = array('f', [-100.])
+    Phi3x3_1 = array('f', [-100.])
+    Phi5x5_1 = array('f', [-100.])
+    Phi7x7_1 = array('f', [-100.])
+    Phi9x9_1 = array('f', [-100.])
+    Phi11x11_1 = array('f', [-100.])
     
     GenEnergy_2 = array('f', [-100.])
     GenEta_2 = array('f', [-100.])
@@ -61,6 +73,18 @@ def getNtupleVars(ntupleFile, outDir, isjet):
     Tot7x7_2 = array('f', [-100.])
     Tot9x9_2 = array('f', [-100.])
     Tot11x11_2 = array('f', [-100.])
+    Eta1x1_2 = array('f', [-100.])
+    Eta3x3_2 = array('f', [-100.])
+    Eta5x5_2 = array('f', [-100.])
+    Eta7x7_2 = array('f', [-100.])
+    Eta9x9_2 = array('f', [-100.])
+    Eta11x11_2 = array('f', [-100.])
+    Phi1x1_2 = array('f', [-100.])
+    Phi3x3_2 = array('f', [-100.])
+    Phi5x5_2 = array('f', [-100.])
+    Phi7x7_2 = array('f', [-100.])
+    Phi9x9_2 = array('f', [-100.])
+    Phi11x11_2 = array('f', [-100.])
 
     treeOut.Branch('GenEnergy_1', GenEnergy_1, 'GenEnergy_1/F')
     treeOut.Branch('GenEta_1', GenEta_1, 'GenEta_1/F')
@@ -83,6 +107,18 @@ def getNtupleVars(ntupleFile, outDir, isjet):
     treeOut.Branch('Tot7x7_1', Tot7x7_1, 'Tot7x7_1/F')
     treeOut.Branch('Tot9x9_1', Tot9x9_1, 'Tot9x9_1/F')
     treeOut.Branch('Tot11x11_1', Tot11x11_1, 'Tot11x11_1/F')
+    treeOut.Branch('Eta1x1_1', Eta1x1_1, 'Eta1x1_1/F')
+    treeOut.Branch('Eta3x3_1', Eta3x3_1, 'Eta3x3_1/F')
+    treeOut.Branch('Eta5x5_1', Eta5x5_1, 'Eta5x5_1/F')
+    treeOut.Branch('Eta7x7_1', Eta7x7_1, 'Eta7x7_1/F')
+    treeOut.Branch('Eta9x9_1', Eta9x9_1, 'Eta9x9_1/F')
+    treeOut.Branch('Eta11x11_1', Eta11x11_1, 'Eta11x11_1/F')
+    treeOut.Branch('Phi1x1_1', Phi1x1_1, 'Phi1x1_1/F')
+    treeOut.Branch('Phi3x3_1', Phi3x3_1, 'Phi3x3_1/F')
+    treeOut.Branch('Phi5x5_1', Phi5x5_1, 'Phi5x5_1/F')
+    treeOut.Branch('Phi7x7_1', Phi7x7_1, 'Phi7x7_1/F')
+    treeOut.Branch('Phi9x9_1', Phi9x9_1, 'Phi9x9_1/F')
+    treeOut.Branch('Phi11x11_1', Phi11x11_1, 'Phi11x11_1/F')
     
     treeOut.Branch('GenEnergy_2', GenEnergy_2, 'GenEnergy_2/F')
     treeOut.Branch('GenEta_2', GenEta_2, 'GenEta_2/F')
@@ -105,6 +141,18 @@ def getNtupleVars(ntupleFile, outDir, isjet):
     treeOut.Branch('Tot7x7_2', Tot7x7_2, 'Tot7x7_2/F')
     treeOut.Branch('Tot9x9_2', Tot9x9_2, 'Tot9x9_2/F')
     treeOut.Branch('Tot11x11_2', Tot11x11_2, 'Tot11x11_2/F')
+    treeOut.Branch('Eta1x1_2', Eta1x1_2, 'Eta1x1_2/F')
+    treeOut.Branch('Eta3x3_2', Eta3x3_2, 'Eta3x3_2/F')
+    treeOut.Branch('Eta5x5_2', Eta5x5_2, 'Eta5x5_2/F')
+    treeOut.Branch('Eta7x7_2', Eta7x7_2, 'Eta7x7_2/F')
+    treeOut.Branch('Eta9x9_2', Eta9x9_2, 'Eta9x9_2/F')
+    treeOut.Branch('Eta11x11_2', Eta11x11_2, 'Eta11x11_2/F')
+    treeOut.Branch('Phi1x1_2', Phi1x1_2, 'Phi1x1_2/F')
+    treeOut.Branch('Phi3x3_2', Phi3x3_2, 'Phi3x3_2/F')
+    treeOut.Branch('Phi5x5_2', Phi5x5_2, 'Phi5x5_2/F')
+    treeOut.Branch('Phi7x7_2', Phi7x7_2, 'Phi7x7_2/F')
+    treeOut.Branch('Phi9x9_2', Phi9x9_2, 'Phi9x9_2/F')
+    treeOut.Branch('Phi11x11_2', Phi11x11_2, 'Phi11x11_2/F')
 
     etaBinStep = 0.0870
     minBinEta = -35
@@ -154,19 +202,19 @@ def getNtupleVars(ntupleFile, outDir, isjet):
         GenEta_1[0] = gen_eta[index_1]
         GenPhi_1[0] = gen_phi[index_1]
 
-        EM1x1_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=0)
-        EM3x3_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=1)
-        EM5x5_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=2)
-        EM7x7_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=3)
-        EM9x9_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=4)
-        EM11x11_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=5)
+        EM1x1_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=0)[0]
+        EM3x3_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=1)[0]
+        EM5x5_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=2)[0]
+        EM7x7_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=3)[0]
+        EM9x9_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=4)[0]
+        EM11x11_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=5)[0]
 
-        Had1x1_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=0)
-        Had3x3_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=1)
-        Had5x5_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=2)
-        Had7x7_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=3)
-        Had9x9_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=4)
-        Had11x11_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=5)
+        Had1x1_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=0)[0]
+        Had3x3_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=1)[0]
+        Had5x5_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=2)[0]
+        Had7x7_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=3)[0]
+        Had9x9_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=4)[0]
+        Had11x11_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=5)[0]
         
         Tot1x1_1[0] = EM1x1_1[0] + Had1x1_1[0]
         Tot3x3_1[0] = EM3x3_1[0] + Had3x3_1[0]
@@ -181,19 +229,19 @@ def getNtupleVars(ntupleFile, outDir, isjet):
         GenEta_2[0] = gen_eta[index_2] if not only1particle else -999
         GenPhi_2[0] = gen_phi[index_2] if not only1particle else -999
         
-        EM1x1_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=0) if not only1particle else -999
-        EM3x3_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=1) if not only1particle else -999
-        EM5x5_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=2) if not only1particle else -999
-        EM7x7_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=3) if not only1particle else -999
-        EM9x9_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=4) if not only1particle else -999
-        EM11x11_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=5) if not only1particle else -999
+        EM1x1_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=0)[0] if not only1particle else -999
+        EM3x3_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=1)[0] if not only1particle else -999
+        EM5x5_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=2)[0] if not only1particle else -999
+        EM7x7_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=3)[0] if not only1particle else -999
+        EM9x9_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=4)[0] if not only1particle else -999
+        EM11x11_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=5)[0] if not only1particle else -999
         
-        Had1x1_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=0) if not only1particle else -999
-        Had3x3_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=1) if not only1particle else -999
-        Had5x5_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=2) if not only1particle else -999
-        Had7x7_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=3) if not only1particle else -999
-        Had9x9_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=4) if not only1particle else -999
-        Had11x11_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=5) if not only1particle else -999
+        Had1x1_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=0)[0] if not only1particle else -999
+        Had3x3_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=1)[0] if not only1particle else -999
+        Had5x5_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=2)[0] if not only1particle else -999
+        Had7x7_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=3)[0] if not only1particle else -999
+        Had9x9_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=4)[0] if not only1particle else -999
+        Had11x11_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=5)[0] if not only1particle else -999
         
         Tot1x1_2[0] = EM1x1_2[0] + Had1x1_2[0]
         Tot3x3_2[0] = EM3x3_2[0] + Had3x3_2[0]
