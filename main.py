@@ -33,6 +33,12 @@ def getNtupleVars(ntupleFile, outDir, isjet):
     Had7x7_1 = array('f', [-100.])
     Had9x9_1 = array('f', [-100.])
     Had11x11_1 = array('f', [-100.])
+    Tot1x1_1 = array('f', [-100.])
+    Tot3x3_1 = array('f', [-100.])
+    Tot5x5_1 = array('f', [-100.])
+    Tot7x7_1 = array('f', [-100.])
+    Tot9x9_1 = array('f', [-100.])
+    Tot11x11_1 = array('f', [-100.])
     
     GenEnergy_2 = array('f', [-100.])
     GenEta_2 = array('f', [-100.])
@@ -49,6 +55,12 @@ def getNtupleVars(ntupleFile, outDir, isjet):
     Had7x7_2 = array('f', [-100.])
     Had9x9_2 = array('f', [-100.])
     Had11x11_2 = array('f', [-100.])
+    Tot1x1_2 = array('f', [-100.])
+    Tot3x3_2 = array('f', [-100.])
+    Tot5x5_2 = array('f', [-100.])
+    Tot7x7_2 = array('f', [-100.])
+    Tot9x9_2 = array('f', [-100.])
+    Tot11x11_2 = array('f', [-100.])
 
     treeOut.Branch('GenEnergy_1', GenEnergy_1, 'GenEnergy_1/F')
     treeOut.Branch('GenEta_1', GenEta_1, 'GenEta_1/F')
@@ -65,6 +77,12 @@ def getNtupleVars(ntupleFile, outDir, isjet):
     treeOut.Branch('Had7x7_1', Had7x7_1, 'Had7x7_1/F')
     treeOut.Branch('Had9x9_1', Had9x9_1, 'Had9x9_1/F')
     treeOut.Branch('Had11x11_1', Had11x11_1, 'Had11x11_1/F')
+    treeOut.Branch('Tot1x1_1', Tot1x1_1, 'Tot1x1_1/F')
+    treeOut.Branch('Tot3x3_1', Tot3x3_1, 'Tot3x3_1/F')
+    treeOut.Branch('Tot5x5_1', Tot5x5_1, 'Tot5x5_1/F')
+    treeOut.Branch('Tot7x7_1', Tot7x7_1, 'Tot7x7_1/F')
+    treeOut.Branch('Tot9x9_1', Tot9x9_1, 'Tot9x9_1/F')
+    treeOut.Branch('Tot11x11_1', Tot11x11_1, 'Tot11x11_1/F')
     
     treeOut.Branch('GenEnergy_2', GenEnergy_2, 'GenEnergy_2/F')
     treeOut.Branch('GenEta_2', GenEta_2, 'GenEta_2/F')
@@ -81,6 +99,12 @@ def getNtupleVars(ntupleFile, outDir, isjet):
     treeOut.Branch('Had7x7_2', Had7x7_2, 'Had7x7_2/F')
     treeOut.Branch('Had9x9_2', Had9x9_2, 'Had9x9_2/F')
     treeOut.Branch('Had11x11_2', Had11x11_2, 'Had11x11_2/F')
+    treeOut.Branch('Tot1x1_2', Tot1x1_2, 'Tot1x1_2/F')
+    treeOut.Branch('Tot3x3_2', Tot3x3_2, 'Tot3x3_2/F')
+    treeOut.Branch('Tot5x5_2', Tot5x5_2, 'Tot5x5_2/F')
+    treeOut.Branch('Tot7x7_2', Tot7x7_2, 'Tot7x7_2/F')
+    treeOut.Branch('Tot9x9_2', Tot9x9_2, 'Tot9x9_2/F')
+    treeOut.Branch('Tot11x11_2', Tot11x11_2, 'Tot11x11_2/F')
 
     etaBinStep = 0.0870
     minBinEta = -35
@@ -144,6 +168,13 @@ def getNtupleVars(ntupleFile, outDir, isjet):
         Had9x9_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=4)
         Had11x11_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=5)
         
+        Tot1x1_1[0] = EM1x1_1[0] + Had1x1_1[0]
+        Tot3x3_1[0] = EM3x3_1[0] + Had3x3_1[0]
+        Tot5x5_1[0] = EM5x5_1[0] + Had5x5_1[0]
+        Tot7x7_1[0] = EM7x7_1[0] + Had7x7_1[0]
+        Tot9x9_1[0] = EM9x9_1[0] + Had9x9_1[0]
+        Tot11x11_1[0] = EM11x11_1[0] + Had11x11_1[0]
+        
         only1particle = True if len(gen_eta)==1 else False
         index_2 = 1
         GenEnergy_2[0] = gen_energy[index_2]/np.cosh(gen_eta[index_2]) if not only1particle else -999
@@ -163,6 +194,13 @@ def getNtupleVars(ntupleFile, outDir, isjet):
         Had7x7_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=3) if not only1particle else -999
         Had9x9_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=4) if not only1particle else -999
         Had11x11_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=5) if not only1particle else -999
+        
+        Tot1x1_2[0] = EM1x1_2[0] + Had1x1_2[0]
+        Tot3x3_2[0] = EM3x3_2[0] + Had3x3_2[0]
+        Tot5x5_2[0] = EM5x5_2[0] + Had5x5_2[0]
+        Tot7x7_2[0] = EM7x7_2[0] + Had7x7_2[0]
+        Tot9x9_2[0] = EM9x9_2[0] + Had9x9_2[0]
+        Tot11x11_2[0] = EM11x11_2[0] + Had11x11_2[0]
         
         treeOut.Fill()
     
