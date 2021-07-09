@@ -9,270 +9,137 @@ import argparse
 
 
 ROOT.gStyle.SetOptStat(0)
-
-def getNtupleVars(ntupleFile, outDir, isjet):
-    fIn = ROOT.TFile.Open(ntupleFile, "READ")
-    treeIn = fIn.Get("hgcalTriggerNtuplizer/HGCalTriggerNtuple")
-
-    varsFile = ntupleFile.split('/')[-1].replace("ntuple_", "vars_").replace(".root","") #variables
-    fOut = ROOT.TFile(outDir + varsFile + ".root", "RECREATE")
-    treeOut = ROOT.TTree(varsFile, varsFile)
-
-    GenEnergy_1 = array('f', [-100.])
-    GenEta_1 = array('f', [-100.])
-    GenPhi_1 = array('f', [-100.])
-    EM1x1_1 = array('f', [-100.])
-    EM3x3_1 = array('f', [-100.])
-    EM5x5_1 = array('f', [-100.])
-    EM7x7_1 = array('f', [-100.])
-    EM9x9_1 = array('f', [-100.])
-    EM11x11_1 = array('f', [-100.])
-    Had1x1_1 = array('f', [-100.])
-    Had3x3_1 = array('f', [-100.])
-    Had5x5_1 = array('f', [-100.])
-    Had7x7_1 = array('f', [-100.])
-    Had9x9_1 = array('f', [-100.])
-    Had11x11_1 = array('f', [-100.])
-    Tot1x1_1 = array('f', [-100.])
-    Tot3x3_1 = array('f', [-100.])
-    Tot5x5_1 = array('f', [-100.])
-    Tot7x7_1 = array('f', [-100.])
-    Tot9x9_1 = array('f', [-100.])
-    Tot11x11_1 = array('f', [-100.])
-    Eta1x1_1 = array('f', [-100.])
-    Eta3x3_1 = array('f', [-100.])
-    Eta5x5_1 = array('f', [-100.])
-    Eta7x7_1 = array('f', [-100.])
-    Eta9x9_1 = array('f', [-100.])
-    Eta11x11_1 = array('f', [-100.])
-    Phi1x1_1 = array('f', [-100.])
-    Phi3x3_1 = array('f', [-100.])
-    Phi5x5_1 = array('f', [-100.])
-    Phi7x7_1 = array('f', [-100.])
-    Phi9x9_1 = array('f', [-100.])
-    Phi11x11_1 = array('f', [-100.])
     
-    GenEnergy_2 = array('f', [-100.])
-    GenEta_2 = array('f', [-100.])
-    GenPhi_2 = array('f', [-100.])
-    EM1x1_2 = array('f', [-100.])
-    EM3x3_2 = array('f', [-100.])
-    EM5x5_2 = array('f', [-100.])
-    EM7x7_2 = array('f', [-100.])
-    EM9x9_2 = array('f', [-100.])
-    EM11x11_2 = array('f', [-100.])
-    Had1x1_2 = array('f', [-100.])
-    Had3x3_2 = array('f', [-100.])
-    Had5x5_2 = array('f', [-100.])
-    Had7x7_2 = array('f', [-100.])
-    Had9x9_2 = array('f', [-100.])
-    Had11x11_2 = array('f', [-100.])
-    Tot1x1_2 = array('f', [-100.])
-    Tot3x3_2 = array('f', [-100.])
-    Tot5x5_2 = array('f', [-100.])
-    Tot7x7_2 = array('f', [-100.])
-    Tot9x9_2 = array('f', [-100.])
-    Tot11x11_2 = array('f', [-100.])
-    Eta1x1_2 = array('f', [-100.])
-    Eta3x3_2 = array('f', [-100.])
-    Eta5x5_2 = array('f', [-100.])
-    Eta7x7_2 = array('f', [-100.])
-    Eta9x9_2 = array('f', [-100.])
-    Eta11x11_2 = array('f', [-100.])
-    Phi1x1_2 = array('f', [-100.])
-    Phi3x3_2 = array('f', [-100.])
-    Phi5x5_2 = array('f', [-100.])
-    Phi7x7_2 = array('f', [-100.])
-    Phi9x9_2 = array('f', [-100.])
-    Phi11x11_2 = array('f', [-100.])
+parser = argparse.ArgumentParser()
 
-    treeOut.Branch('GenEnergy_1', GenEnergy_1, 'GenEnergy_1/F')
-    treeOut.Branch('GenEta_1', GenEta_1, 'GenEta_1/F')
-    treeOut.Branch('GenPhi_1', GenPhi_1, 'GenPhi_1/F')
-    treeOut.Branch('EM1x1_1', EM1x1_1, 'EM1x1_1/F')
-    treeOut.Branch('EM3x3_1', EM3x3_1, 'EM3x3_1/F')
-    treeOut.Branch('EM5x5_1', EM5x5_1, 'EM5x5_1/F')
-    treeOut.Branch('EM7x7_1', EM7x7_1, 'EM7x7_1/F')
-    treeOut.Branch('EM9x9_1', EM9x9_1, 'EM9x9_1/F')
-    treeOut.Branch('EM11x11_1', EM11x11_1, 'EM11x11_1/F')
-    treeOut.Branch('Had1x1_1', Had1x1_1, 'Had1x1_1/F')
-    treeOut.Branch('Had3x3_1', Had3x3_1, 'Had3x3_1/F')
-    treeOut.Branch('Had5x5_1', Had5x5_1, 'Had5x5_1/F')
-    treeOut.Branch('Had7x7_1', Had7x7_1, 'Had7x7_1/F')
-    treeOut.Branch('Had9x9_1', Had9x9_1, 'Had9x9_1/F')
-    treeOut.Branch('Had11x11_1', Had11x11_1, 'Had11x11_1/F')
-    treeOut.Branch('Tot1x1_1', Tot1x1_1, 'Tot1x1_1/F')
-    treeOut.Branch('Tot3x3_1', Tot3x3_1, 'Tot3x3_1/F')
-    treeOut.Branch('Tot5x5_1', Tot5x5_1, 'Tot5x5_1/F')
-    treeOut.Branch('Tot7x7_1', Tot7x7_1, 'Tot7x7_1/F')
-    treeOut.Branch('Tot9x9_1', Tot9x9_1, 'Tot9x9_1/F')
-    treeOut.Branch('Tot11x11_1', Tot11x11_1, 'Tot11x11_1/F')
-    treeOut.Branch('Eta1x1_1', Eta1x1_1, 'Eta1x1_1/F')
-    treeOut.Branch('Eta3x3_1', Eta3x3_1, 'Eta3x3_1/F')
-    treeOut.Branch('Eta5x5_1', Eta5x5_1, 'Eta5x5_1/F')
-    treeOut.Branch('Eta7x7_1', Eta7x7_1, 'Eta7x7_1/F')
-    treeOut.Branch('Eta9x9_1', Eta9x9_1, 'Eta9x9_1/F')
-    treeOut.Branch('Eta11x11_1', Eta11x11_1, 'Eta11x11_1/F')
-    treeOut.Branch('Phi1x1_1', Phi1x1_1, 'Phi1x1_1/F')
-    treeOut.Branch('Phi3x3_1', Phi3x3_1, 'Phi3x3_1/F')
-    treeOut.Branch('Phi5x5_1', Phi5x5_1, 'Phi5x5_1/F')
-    treeOut.Branch('Phi7x7_1', Phi7x7_1, 'Phi7x7_1/F')
-    treeOut.Branch('Phi9x9_1', Phi9x9_1, 'Phi9x9_1/F')
-    treeOut.Branch('Phi11x11_1', Phi11x11_1, 'Phi11x11_1/F')
+parser.add_argument('--jet', action='store_true')
+parser.add_argument('--nojet', action='store_true')
+parser.add_argument('--input', type=str, required=True)
+
+args = parser.parse_args()
+
+if(bool(args.nojet)==bool(args.jet)):
+    print("ERROR: either '--jet' or '--nojet' must be used as input argument")
+    sys.exit(1)
+
+ntupleFile = args.input
+outDir = "varsDir/"
+isjet = args.jet
+
+fIn = ROOT.TFile.Open(ntupleFile, "READ")
+treeIn = fIn.Get("hgcalTriggerNtuplizer/HGCalTriggerNtuple")
+
+varsFile = ntupleFile.split('/')[-1].replace("ntuple_", "vars_").replace(".root","") #variables
+fOut = ROOT.TFile(outDir + varsFile + ".root", "RECREATE")
+treeOut = ROOT.TTree(varsFile, varsFile)
+
+GenEnergy_1 = array('f', [-100.])
+GenEta_1 = array('f', [-100.])
+GenPhi_1 = array('f', [-100.])
+GenEnergy_2 = array('f', [-100.])
+GenEta_2 = array('f', [-100.])
+GenPhi_2 = array('f', [-100.])
+treeOut.Branch('GenEnergy_1', GenEnergy_1, 'GenEnergy_1/F')
+treeOut.Branch('GenEta_1', GenEta_1, 'GenEta_1/F')
+treeOut.Branch('GenPhi_1', GenPhi_1, 'GenPhi_1/F')
+treeOut.Branch('GenEnergy_2', GenEnergy_2, 'GenEnergy_2/F')
+treeOut.Branch('GenEta_2', GenEta_2, 'GenEta_2/F')
+treeOut.Branch('GenPhi_2', GenPhi_2, 'GenPhi_2/F')
+
+mtxSizes = ['1x1', '3x3', '5x5', '7x7', '9x9', '11x11']
+detectorVariables = ['EtEM', 'EtHad', 'EtTot', 'EtaEM', 'EtaHad', 'EtaTot', 'PhiEM', 'PhiHad', 'PhiTot']
+energyRank = ['_1', '_2']
+
+for rank in energyRank:
+    for det in detectorVariables:
+        for size in mtxSizes:
+            var = det+size+rank
+            exec(var+" = array('f', [-100.])")
+            exec("treeOut.Branch('"+var+"', "+var+", '"+var+"/F')")
+
+etaBinStep = 0.0870
+minBinEta = -35
+maxBinEta = 35
+minEta = minBinEta * etaBinStep
+maxEta = maxBinEta * etaBinStep
+nBinsEta = maxBinEta - minBinEta
+
+phiBinStep = 2*math.pi/72
+minBinPhi = -36
+maxBinPhi = 36
+minPhi = minBinPhi * phiBinStep
+maxPhi = maxBinPhi * phiBinStep
+nBinsPhi = maxBinPhi - minBinPhi
+
+histEM = ROOT.TH2D("histEM","",nBinsEta,minEta,maxEta, nBinsPhi,minPhi,maxPhi)
+histHad = ROOT.TH2D("histHad","",nBinsEta,minEta,maxEta, nBinsPhi,minPhi,maxPhi)
+
+for entryNum in range(0, treeIn.GetEntries()):
+    if entryNum%100==0:
+        print("entryNum=", entryNum)
+    treeIn.GetEntry(entryNum)
+    tower_iPhi = getattr(treeIn,"tower_iPhi")
+    tower_iEta = getattr(treeIn,"tower_iEta")
+    tower_etEm = getattr(treeIn,"tower_etEm")
+    tower_etHad = getattr(treeIn,"tower_etHad")
+    tower_n = getattr(treeIn,"tower_n")
+    tower_eta = getattr(treeIn,"tower_eta")        
+    if(isjet):
+        jetflag = 'jet'
+    else:
+        jetflag = ''
+    gen_eta = getattr(treeIn,"gen" + jetflag + "_eta")
+    gen_phi = getattr(treeIn,"gen" + jetflag + "_phi")
+    gen_energy = getattr(treeIn,"gen" + jetflag + "_energy")
     
-    treeOut.Branch('GenEnergy_2', GenEnergy_2, 'GenEnergy_2/F')
-    treeOut.Branch('GenEta_2', GenEta_2, 'GenEta_2/F')
-    treeOut.Branch('GenPhi_2', GenPhi_2, 'GenPhi_2/F')
-    treeOut.Branch('EM1x1_2', EM1x1_2, 'EM1x1_2/F')
-    treeOut.Branch('EM3x3_2', EM3x3_2, 'EM3x3_2/F')
-    treeOut.Branch('EM5x5_2', EM5x5_2, 'EM5x5_2/F')
-    treeOut.Branch('EM7x7_2', EM7x7_2, 'EM7x7_2/F')
-    treeOut.Branch('EM9x9_2', EM9x9_2, 'EM9x9_2/F')
-    treeOut.Branch('EM11x11_2', EM11x11_2, 'EM11x11_2/F')
-    treeOut.Branch('Had1x1_2', Had1x1_2, 'Had1x1_2/F')
-    treeOut.Branch('Had3x3_2', Had3x3_2, 'Had3x3_2/F')
-    treeOut.Branch('Had5x5_2', Had5x5_2, 'Had5x5_2/F')
-    treeOut.Branch('Had7x7_2', Had7x7_2, 'Had7x7_2/F')
-    treeOut.Branch('Had9x9_2', Had9x9_2, 'Had9x9_2/F')
-    treeOut.Branch('Had11x11_2', Had11x11_2, 'Had11x11_2/F')
-    treeOut.Branch('Tot1x1_2', Tot1x1_2, 'Tot1x1_2/F')
-    treeOut.Branch('Tot3x3_2', Tot3x3_2, 'Tot3x3_2/F')
-    treeOut.Branch('Tot5x5_2', Tot5x5_2, 'Tot5x5_2/F')
-    treeOut.Branch('Tot7x7_2', Tot7x7_2, 'Tot7x7_2/F')
-    treeOut.Branch('Tot9x9_2', Tot9x9_2, 'Tot9x9_2/F')
-    treeOut.Branch('Tot11x11_2', Tot11x11_2, 'Tot11x11_2/F')
-    treeOut.Branch('Eta1x1_2', Eta1x1_2, 'Eta1x1_2/F')
-    treeOut.Branch('Eta3x3_2', Eta3x3_2, 'Eta3x3_2/F')
-    treeOut.Branch('Eta5x5_2', Eta5x5_2, 'Eta5x5_2/F')
-    treeOut.Branch('Eta7x7_2', Eta7x7_2, 'Eta7x7_2/F')
-    treeOut.Branch('Eta9x9_2', Eta9x9_2, 'Eta9x9_2/F')
-    treeOut.Branch('Eta11x11_2', Eta11x11_2, 'Eta11x11_2/F')
-    treeOut.Branch('Phi1x1_2', Phi1x1_2, 'Phi1x1_2/F')
-    treeOut.Branch('Phi3x3_2', Phi3x3_2, 'Phi3x3_2/F')
-    treeOut.Branch('Phi5x5_2', Phi5x5_2, 'Phi5x5_2/F')
-    treeOut.Branch('Phi7x7_2', Phi7x7_2, 'Phi7x7_2/F')
-    treeOut.Branch('Phi9x9_2', Phi9x9_2, 'Phi9x9_2/F')
-    treeOut.Branch('Phi11x11_2', Phi11x11_2, 'Phi11x11_2/F')
+    histEM.Reset()
+    histHad.Reset()
 
-    etaBinStep = 0.0870
-    minBinEta = -35
-    maxBinEta = 35
-    minEta = minBinEta * etaBinStep
-    maxEta = maxBinEta * etaBinStep
-    nBinsEta = maxBinEta - minBinEta
+    for towerID in range(tower_n):
+        etaPhiBins = getEtaPhiBins(tower_eta[towerID], tower_iEta[towerID], tower_iPhi[towerID])
+        histEM.SetBinContent(etaPhiBins[0], etaPhiBins[1], tower_etEm[towerID])
+        histHad.SetBinContent(etaPhiBins[0], etaPhiBins[1], tower_etHad[towerID])
+
+    index_1 = 0
+    GenEnergy_1[0] = gen_energy[index_1]/np.cosh(gen_eta[index_1])
+    GenEta_1[0] = gen_eta[index_1]
+    GenPhi_1[0] = gen_phi[index_1]
     
-    phiBinStep = 2*math.pi/72
-    minBinPhi = -36
-    maxBinPhi = 36
-    minPhi = minBinPhi * phiBinStep
-    maxPhi = maxBinPhi * phiBinStep
-    nBinsPhi = maxBinPhi - minBinPhi
+    index_2 = 1
+    only1particle = True if len(gen_eta)==1 else False
+    GenEnergy_2[0] = gen_energy[index_2]/np.cosh(gen_eta[index_2]) if not only1particle else -999
+    GenEta_2[0] = gen_eta[index_2] if not only1particle else -999
+    GenPhi_2[0] = gen_phi[index_2] if not only1particle else -999
 
-    histEM = ROOT.TH2D("histEM","",nBinsEta,minEta,maxEta, nBinsPhi,minPhi,maxPhi)
-    histHad = ROOT.TH2D("histHad","",nBinsEta,minEta,maxEta, nBinsPhi,minPhi,maxPhi)
+    for det in ['EM', 'Had']:
+        for count, size in enumerate(mtxSizes):
+            for rank in energyRank:
+                var = det+size+rank
+                if((rank=='_1') or (not only1particle)):
+                    exec("Et"+var+"[0], Eta"+var+"[0], Phi"+var+"[0] = sumTowers(hist"+det+\
+                        ", gen_eta[index"+rank+"], gen_phi[index"+rank+"], numNeighbors="+str(count)+")")
+                else:
+                    exec("Et"+var+"[0], Eta"+var+"[0], Phi"+var+"[0] = (-999, -999, -999)")
 
-    for entryNum in range(0, treeIn.GetEntries()):
-        if entryNum%100==0:
-            print("entryNum=", entryNum)
-        treeIn.GetEntry(entryNum)
-        tower_iPhi = getattr(treeIn,"tower_iPhi")
-        tower_iEta = getattr(treeIn,"tower_iEta")
-        tower_etEm = getattr(treeIn,"tower_etEm")
-        tower_etHad = getattr(treeIn,"tower_etHad")
-        tower_n = getattr(treeIn,"tower_n")
-        tower_eta = getattr(treeIn,"tower_eta")        
-        if(isjet):
-            jetflag = 'jet'
-        else:
-            jetflag = ''
-        gen_eta = getattr(treeIn,"gen" + jetflag + "_eta")
-        gen_phi = getattr(treeIn,"gen" + jetflag + "_phi")
-        gen_energy = getattr(treeIn,"gen" + jetflag + "_energy")
-        
-        histEM.Reset()
-        histHad.Reset()
+    for size in mtxSizes:
+        for rank in energyRank:
+            var = size+rank
+            if((rank=='_1') or (not only1particle)):
+                exec("EtTot"+var+"[0] = EtEM"+var+"[0] + EtHad"+var+"[0]")
+                exec("EtaTot"+var+"[0] = (EtaEM"+var+"[0]*EtEM"+var+"[0] + EtaHad"
+                    +var+"[0]*EtHad"+var+"[0])/(EtTot"+var+"[0]) if (EtTot"+var+"[0])!=0 else -999")
+                exec("PhiTot"+var+"[0] = (PhiEM"+var+"[0]*EtEM"+var+"[0] + PhiHad"
+                    +var+"[0]*EtHad"+var+"[0])/(EtTot"+var+"[0]) if (EtTot"+var+"[0])!=0 else -999")
+            else:
+                exec("EtTot"+var+"[0] = -999")
+                exec("EtaTot"+var+"[0] = -999")
+                exec("PhiTot"+var+"[0] = -999")
+                
+    treeOut.Fill()
 
-        for towerID in range(tower_n):
-            etaPhiBins = getEtaPhiBins(tower_eta[towerID], tower_iEta[towerID], tower_iPhi[towerID])
-            histEM.SetBinContent(etaPhiBins[0], etaPhiBins[1], tower_etEm[towerID])
-            histHad.SetBinContent(etaPhiBins[0], etaPhiBins[1], tower_etHad[towerID])
-
-        index_1 = 0
-        GenEnergy_1[0] = gen_energy[index_1]/np.cosh(gen_eta[index_1])
-        GenEta_1[0] = gen_eta[index_1]
-        GenPhi_1[0] = gen_phi[index_1]
-
-        EM1x1_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=0)[0]
-        EM3x3_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=1)[0]
-        EM5x5_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=2)[0]
-        EM7x7_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=3)[0]
-        EM9x9_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=4)[0]
-        EM11x11_1[0] = sumTowers(histEM, gen_eta[index_1], gen_phi[index_1], numNeighbors=5)[0]
-
-        Had1x1_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=0)[0]
-        Had3x3_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=1)[0]
-        Had5x5_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=2)[0]
-        Had7x7_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=3)[0]
-        Had9x9_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=4)[0]
-        Had11x11_1[0] = sumTowers(histHad, gen_eta[index_1], gen_phi[index_1], numNeighbors=5)[0]
-        
-        Tot1x1_1[0] = EM1x1_1[0] + Had1x1_1[0]
-        Tot3x3_1[0] = EM3x3_1[0] + Had3x3_1[0]
-        Tot5x5_1[0] = EM5x5_1[0] + Had5x5_1[0]
-        Tot7x7_1[0] = EM7x7_1[0] + Had7x7_1[0]
-        Tot9x9_1[0] = EM9x9_1[0] + Had9x9_1[0]
-        Tot11x11_1[0] = EM11x11_1[0] + Had11x11_1[0]
-        
-        only1particle = True if len(gen_eta)==1 else False
-        index_2 = 1
-        GenEnergy_2[0] = gen_energy[index_2]/np.cosh(gen_eta[index_2]) if not only1particle else -999
-        GenEta_2[0] = gen_eta[index_2] if not only1particle else -999
-        GenPhi_2[0] = gen_phi[index_2] if not only1particle else -999
-        
-        EM1x1_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=0)[0] if not only1particle else -999
-        EM3x3_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=1)[0] if not only1particle else -999
-        EM5x5_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=2)[0] if not only1particle else -999
-        EM7x7_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=3)[0] if not only1particle else -999
-        EM9x9_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=4)[0] if not only1particle else -999
-        EM11x11_2[0] = sumTowers(histEM, gen_eta[index_2], gen_phi[index_2], numNeighbors=5)[0] if not only1particle else -999
-        
-        Had1x1_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=0)[0] if not only1particle else -999
-        Had3x3_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=1)[0] if not only1particle else -999
-        Had5x5_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=2)[0] if not only1particle else -999
-        Had7x7_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=3)[0] if not only1particle else -999
-        Had9x9_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=4)[0] if not only1particle else -999
-        Had11x11_2[0] = sumTowers(histHad, gen_eta[index_2], gen_phi[index_2], numNeighbors=5)[0] if not only1particle else -999
-        
-        Tot1x1_2[0] = EM1x1_2[0] + Had1x1_2[0]
-        Tot3x3_2[0] = EM3x3_2[0] + Had3x3_2[0]
-        Tot5x5_2[0] = EM5x5_2[0] + Had5x5_2[0]
-        Tot7x7_2[0] = EM7x7_2[0] + Had7x7_2[0]
-        Tot9x9_2[0] = EM9x9_2[0] + Had9x9_2[0]
-        Tot11x11_2[0] = EM11x11_2[0] + Had11x11_2[0]
-        
-        treeOut.Fill()
-    
-    fOut.Write()
-    fOut.Close()
+fOut.Write()
+fOut.Close()
 
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    
-    parser.add_argument('--jet', action='store_true')
-    parser.add_argument('--nojet', action='store_true')
-    parser.add_argument('--input', type=str, required=True)
-    
-    args = parser.parse_args()
-    
-    if(bool(args.nojet)==bool(args.jet)):
-        print("ERROR: either '--jet' or '--nojet' must be used as input argument")
-        sys.exit(1)
 
-    varsDir = "varsDir/"
-    
-    getNtupleVars(args.input, varsDir, args.jet)
-    
-if __name__=='__main__':
-    main()
